@@ -1,0 +1,43 @@
+name: Cognify CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install & Build Backend
+        working-directory: ./server
+        run: |
+          npm install
+          npm run build || echo "No build step in backend"
+
+      - name: Install & Build Frontend
+        working-directory: ./client
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy via SSH to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/cognify-project
+            git pull origin main
+            cd server && pm2 restart server || pm2 start index.js --name server
+            cd ../client && pm2 restart client || pm2 start npm --name client -- run dev
