@@ -1,18 +1,16 @@
-# Use an official Node.js base image
 FROM node:18
 
-# Set working directory inside the container
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# Copy package files and install
 COPY package*.json ./
 RUN npm install
 
-# Copy the entire backend code
+# Copy source code
 COPY . .
 
-# Expose backend port
-EXPOSE 5000
+# ✅ Copy .env into container
+COPY .env .env
 
-# Start the backend
+# Start server
 CMD ["node", "server.js"]
