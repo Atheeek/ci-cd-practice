@@ -1,17 +1,17 @@
-# Use official Node image to build the frontend
-FROM node:18 AS builder
+# Step 1: Build the Vite app
+FROM node:18-alpine as builder
 
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
 COPY . .
+RUN npm install
 RUN npm run build
 
-# Use Nginx to serve the frontend
-FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Step 2: Serve the build with `serve`
+FROM node:18-alpine
 
-# Expose default Nginx port
+WORKDIR /app
+RUN npm install -g serve
+COPY --from=builder /app/dist ./dist
+
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "dist", "-l", "80"]
