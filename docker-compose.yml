@@ -11,7 +11,10 @@ services:
     restart: always
 
   frontend:
-    build: ./cognify-frontend
+    build:
+      context: ./cognify-frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL}  # ✅ Inject at build time
     container_name: cognify-frontend
     ports:
       - "80:80"
