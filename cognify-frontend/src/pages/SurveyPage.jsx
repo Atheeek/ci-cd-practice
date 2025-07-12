@@ -258,7 +258,7 @@ const SurveyPage = () => {
      // --- Optional: Backend Submission ---
      try {
        const authToken = localStorage.getItem('authToken'); // Ensure you handle auth appropriately
-       const response = await fetch('http://localhost:5000/api/surveys', { // Replace with your actual API endpoint
+       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/surveys`, { // Replace with your actual API endpoint
          method: 'POST',
          headers: {
            'Content-Type': 'application/json',

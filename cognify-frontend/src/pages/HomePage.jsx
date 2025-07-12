@@ -90,7 +90,7 @@ const HomePage = () => {
             if (token) {
                 try {
                     // Replace with your actual API endpoint
-                    const response = await fetch('http://localhost:5000/api/users/auth/verify', {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/auth/verify`, {
                         method: 'GET',
                         headers: { 'Authorization': `Bearer ${token}` },
                     });
@@ -152,7 +152,7 @@ const HomePage = () => {
 
         try {
              // Replace with your actual API endpoint
-            const response = await fetch('http://localhost:5000/api/contact', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, message }),

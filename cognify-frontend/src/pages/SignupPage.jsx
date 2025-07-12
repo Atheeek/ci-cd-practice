@@ -14,7 +14,7 @@ function SignupPage() {
     const password = e.target[2].value;
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/signup', { // Replace with your backend signup endpoint
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/signup`, { // Replace with your backend signup endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

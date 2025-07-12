@@ -11,7 +11,7 @@ function LoginPage() {
     const password = e.target[1].value;
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', { // Replace with your backend login endpoint
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, { // Replace with your backend login endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

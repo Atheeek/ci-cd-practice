@@ -31,7 +31,7 @@ const ProfilePage = () => {
       }
 
       try {
-        const profileResponse = await fetch('http://localhost:5000/api/users/profile', {
+        const profileResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/users/profile`, {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` },
         });
@@ -48,7 +48,7 @@ const ProfilePage = () => {
         const profileData = await profileResponse.json();
         setProfile(profileData);
 
-        const progressResponse = await fetch(`http://localhost:5000/api/progress/${profileData._id}`, {
+        const progressResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/progress/${profileData._id}`, {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` },
         });
