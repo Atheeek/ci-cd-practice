@@ -7,14 +7,14 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - .env
+      - ./cognify-backend/.env
     restart: always
 
   frontend:
     build:
       context: ./cognify-frontend
       args:
-        VITE_API_URL: ${VITE_API_URL}  # ✅ Inject at build time
+        VITE_API_URL: ${VITE_API_URL} # from root .env
     container_name: cognify-frontend
     ports:
       - "80:80"

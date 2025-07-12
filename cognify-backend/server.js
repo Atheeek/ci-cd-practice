@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
 app.use(express.json());
 app.use('/api/progress', progressRoutes);
+dotenv.config(); // ✅ this must come before using process.env.MONGO_URI
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
