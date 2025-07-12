@@ -10,27 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: 📦 Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: 🧰 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install & Build Backend
-        working-directory: ./server
+      # 🔧 Backend Build
+      - name: 🔧 Install & Build Backend
+        working-directory: ./cognify-backend
         run: |
           npm install
-          npm run build || echo "No build step in backend"
+          npm run build || echo "No build script in backend"
 
-      - name: Install & Build Frontend
-        working-directory: ./client
+      # 🎨 Frontend Build
+      - name: 🎨 Install & Build Frontend
+        working-directory: ./cognify-frontend
         run: |
           npm install
           npm run build
 
-      - name: Deploy via SSH to EC2
+      # 🚀 Deploy to EC2 via SSH
+      - name: 🚀 Deploy via SSH to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -39,5 +42,11 @@ jobs:
           script: |
             cd /home/ubuntu/cognify-project
             git pull origin main
-            cd server && pm2 restart server || pm2 start index.js --name server
-            cd ../client && pm2 restart client || pm2 start npm --name client -- run dev
+
+            # Restart Backend
+            cd cognify-backend
+            pm2 restart backend || pm2 start index.js --name backend
+
+            # Restart Frontend (optional: use serve or dev)
+            cd ../cognify-frontend
+            pm2 restart frontend || pm2 start npm --name frontend -- run dev
