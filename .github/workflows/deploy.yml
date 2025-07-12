@@ -9,7 +9,7 @@ jobs:
   deploy:
     name: 🔁 Build & Deploy to EC2
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: ⬇️ Checkout Repo
         uses: actions/checkout@v3
@@ -22,6 +22,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ci-cd-practice
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+            
             git pull origin main
             docker compose pull
             docker compose up --build -d
