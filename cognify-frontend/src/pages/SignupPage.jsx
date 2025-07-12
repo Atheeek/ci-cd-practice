@@ -29,7 +29,7 @@ function SignupPage() {
 
       const data = await response.json();
       console.log('Signup successful:', data);
-      console.log("Signed in successfully:", data);
+      console.log("User created successfully:", data);
       localStorage.setItem('authToken', data.token); // Example: storing a JWT token
       navigate('/home');
 
