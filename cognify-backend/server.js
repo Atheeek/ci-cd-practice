@@ -16,7 +16,7 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
 app.use(express.json());
 app.use('/api/progress', progressRoutes);
 
-mongoose.connect("mongodb://127.0.0.1:27017/db", {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
