@@ -1,26 +1,42 @@
-- name: 📡 Connect to EC2 & Deploy
-  uses: appleboy/ssh-action@v1.0.3
-  with:
-    host: ${{ secrets.SSH_HOST }}
-    username: ${{ secrets.SSH_USERNAME }}
-    key: ${{ secrets.SSH_PRIVATE_KEY }}
-    script: |
-      set -e
-      cd ci-cd-practice
+name: 🚀 Deploy Cognify to EC2
 
-      echo "⚙️ Cleaning untracked files to avoid merge conflicts"
-      git clean -fd
+on:
+  push:
+    branches:
+      - main
 
-      echo "📥 Pulling latest code"
-      git pull origin main
+jobs:
+  deploy:
+    name: 🔁 Build & Deploy to EC2
+    runs-on: ubuntu-latest
 
-      echo "🌐 Injecting VITE_API_URL into root .env"
-      echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+    steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v3
 
-      echo "🐳 Stopping old containers"
-      docker compose down
+      - name: 📡 Connect to EC2 & Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            cd ci-cd-practice
 
-      echo "🛠 Rebuilding and running containers"
-      docker compose up --build -d
+            echo "⚙️ Cleaning untracked files to avoid merge conflicts"
+            git clean -fd
 
-      echo "✅ Deployment complete!"
+            echo "📥 Pulling latest code"
+            git pull origin main
+
+            echo "🌐 Injecting VITE_API_URL into root .env"
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+
+            echo "🐳 Stopping old containers"
+            docker compose down
+
+            echo "🛠 Rebuilding and running containers"
+            docker compose up --build -d
+
+            echo "✅ Deployment complete!"
