@@ -2,7 +2,9 @@ version: "3.8"
 
 services:
   backend:
-    build: ./cognify-backend
+    build:
+      context: ./cognify-backend
+      dockerfile: Dockerfile
     container_name: cognify-backend
     ports:
       - "5000:5000"
@@ -13,11 +15,20 @@ services:
   frontend:
     build:
       context: ./cognify-frontend
+      dockerfile: Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL} # from root .env
+        VITE_API_URL: ${VITE_API_URL}  # Injected at build-time from root .env
     container_name: cognify-frontend
+    # You can disable port binding if using NGINX
+    # Otherwise, change 3000 if needed
     ports:
-      - "3000:80" 
+      - "3000:80"
     depends_on:
       - backend
     restart: always
+
+# Optional: Define networks explicitly if you want to reverse proxy via NGINX
+# networks:
+#   default:
+#     name: cognify-network
+
