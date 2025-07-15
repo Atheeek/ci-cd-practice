@@ -24,21 +24,21 @@ jobs:
             set -e
             cd ci-cd-practice
 
-            echo "⚙️ Removing local .env to avoid merge issues"
+            echo "⚙️ Cleaning local changes"
             rm -f .env
-
-            echo "📥 Pulling latest code"
             git reset --hard
             git clean -fd
+
+            echo "📥 Pulling latest code"
             git pull origin main
 
-            echo "🌐 Injecting VITE_API_URL into root .env"
+            echo "🌐 Injecting ENV variable"
             echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
 
-            echo "🐳 Stopping old containers"
+            echo "🛑 Stopping containers"
             docker compose down
 
-            echo "🛠 Rebuilding and running containers"
+            echo "🛠 Rebuilding and starting containers"
             docker compose up --build -d
 
-            echo "✅ Deployment complete!"
+            echo "✅ Deployment successful!"
