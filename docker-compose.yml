@@ -14,7 +14,8 @@ services:
     build:
       context: ./cognify-frontend
       args:
-        VITE_API_URL: http://nginx/api  # 🔥 Key Fix: make frontend call API through NGINX
+        VITE_API_URL: http://13.53.37.199/api
+  # 🔥 Key Fix: make frontend call API through NGINX
     container_name: cognify-frontend
     expose:
       - "80"
