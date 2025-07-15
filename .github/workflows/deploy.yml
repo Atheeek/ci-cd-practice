@@ -31,7 +31,7 @@ jobs:
             git pull origin main
 
             echo "🌐 Injecting VITE_API_URL into root .env"
-            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+            echo "VITE_API_URL=http://nginx/api" > .env  # 🔥 Same as used in Docker ARG
 
             echo "🐳 Stopping old containers"
             docker compose down
