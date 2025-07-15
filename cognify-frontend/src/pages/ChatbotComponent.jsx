@@ -221,7 +221,7 @@ const ChatbotComponent = () => {
       setIsTyping(true);
 
       try {
-        const response = await axios.post("http://localhost:5000/api/chatbot/chat", {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/chatbot/chat`, {
           message: messageText,
           sessionId: Date.now().toString(),
           model: selectedModel,
