@@ -14,7 +14,7 @@ services:
     build:
       context: ./cognify-frontend
       args:
-        VITE_API_URL: http://localhost/api
+        VITE_API_URL: http://localhost:5000 # Docker internal call
     container_name: cognify-frontend
     expose:
       - "80"
@@ -23,8 +23,9 @@ services:
     restart: always
 
   nginx:
-    build: ./nginx
-    container_name: nginx-proxy
+    build:
+      context: ./nginx
+    container_name: cognify-nginx
     ports:
       - "80:80"
     depends_on:
