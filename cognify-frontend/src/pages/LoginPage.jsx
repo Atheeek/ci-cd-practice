@@ -25,7 +25,7 @@ function LoginPage() {
       }
 
       const data = await response.json();
-      console.log('Login successful:', data);
+      // console.log('Login successful:', data);
       // Store authentication token or user info in local storage/state
       localStorage.setItem('authToken', data.token); // Example: storing a JWT token
       navigate('/home');
