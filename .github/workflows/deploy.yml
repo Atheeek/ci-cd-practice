@@ -24,10 +24,12 @@ jobs:
             set -e
             cd ci-cd-practice
 
-            echo "⚙️ Cleaning untracked files to avoid merge conflicts"
-            git clean -fd
+            echo "⚙️ Removing local .env to avoid merge issues"
+            rm -f .env
 
             echo "📥 Pulling latest code"
+            git reset --hard
+            git clean -fd
             git pull origin main
 
             echo "🌐 Injecting VITE_API_URL into root .env"
