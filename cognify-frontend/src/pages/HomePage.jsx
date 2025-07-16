@@ -206,7 +206,7 @@ const HomePage = () => {
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 flex-shrink-0">
                          {/* Ensure logo works on both light/dark or use conditional rendering for two logos */}
-                        <img src="logoo.png" className="h-10 sm:h-20 w-54" alt="Cognify Logo" />
+                        <img src="logoo.png" className="h-12 sm:h-16 w-auto" alt="Cognify Logo" />
                     </Link>
 
                     {/* Desktop Navigation Links */}
@@ -379,7 +379,7 @@ const HomePage = () => {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={staggerContainer}
             >
-                <h3 className="text-3xl sm:text-4xl font-bold text-indigo-700 dark:text-indigo-400 text-center mb-16">✨ Tailored Learning Tools</h3>
+                <h3 className="text-3xl sm:text-4xl font-bold text-indigo-700 dark:text-indigo-400 text-center mb-16"> Tailored Learning Tools</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     {/* Added linkTo props to make cards clickable */}
                     <FeatureCard 
